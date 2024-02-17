@@ -63,11 +63,11 @@ const Sidebar = () => {
 
 	return (
 		<div>
-			<Link href="/dashboard" className="flex justify-start items-center px-6 my-6">
+			<Link href="/dashboard" className="flex justify-start items-center p-6">
 				<Image src="/logo.png" alt="avatar" width={400} height={400} className="w-8 h-8 mr-4" />
 				<h1 className={cn('text-2xl font-bold text-white', montserrat.className)}>Genius</h1>
 			</Link>
-			<div className="px-3 mt-14 space-y-1">
+			<div className="px-3 mt-8 space-y-1">
 				{routes.map((route, index) => (
 					<Button
 						asChild
