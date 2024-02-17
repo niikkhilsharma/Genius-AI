@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils'
 import { Code, ImageIcon, MessageSquare, Music, VideoIcon, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 
-export const tools = [
+const tools = [
 	{
 		label: 'Conversation',
 		icon: MessageSquare,
