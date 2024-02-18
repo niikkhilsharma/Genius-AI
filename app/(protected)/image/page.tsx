@@ -12,8 +12,8 @@ export default async function ImagePage() {
 	}
 
 	return (
-		<>
+		<div className="px-8">
 			<ResponsePageHeading ai={ai} />
-		</>
+		</div>
 	)
 }
