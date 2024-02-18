@@ -42,7 +42,7 @@ const tools = [
 	},
 ]
 
-export default function Page() {
+export default function DashboardPage() {
 	return (
 		<>
 			<div className="text-center">
@@ -51,7 +51,7 @@ export default function Page() {
 					Chat with the smartest AI - Experience the power of AI
 				</p>
 			</div>
-			<div className="px-4 md:px-20 lg:px-32 mx-auto my-9 space-y-4">
+			<div className="px-4 md:px-20 lg:px-32 mx-auto my-9 md:my-8 space-y-4">
 				{tools.map((tool, index) => (
 					<Card key={index} className="flex justify-between hover:shadow-md transition border-black/5">
 						<Link href={tool.href} className="p-4 flex w-full justify-between items-center">
