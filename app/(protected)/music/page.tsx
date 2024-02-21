@@ -1,5 +1,5 @@
 'use client'
-import React, { useRef } from 'react'
+import React, { useState } from 'react'
 
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -20,9 +20,8 @@ const musicPrompt = z.object({
 })
 
 export default function MusicPage() {
-	// const [music, setMusic] = React.useState<string>()
-	const music = useRef<string>()
-	const [loading, setLoading] = React.useState(false)
+	const [music, setMusic] = useState<string>()
+	const [loading, setLoading] = useState(false)
 
 	// 1. Define your form.
 	const form = useForm<z.infer<typeof musicPrompt>>({
@@ -36,6 +35,7 @@ export default function MusicPage() {
 	async function onSubmit(values: z.infer<typeof musicPrompt>) {
 		try {
 			setLoading(true)
+			setMusic(undefined)
 			const res = await fetch('/api/dashboard/music', {
 				method: 'POST',
 				headers: {
@@ -44,8 +44,7 @@ export default function MusicPage() {
 				body: JSON.stringify(values),
 			})
 			const data = await res.json()
-			// setMusic(data.output)
-			music.current = data.output
+			setMusic(data.output)
 			setLoading(false)
 			toast.success('Music generated successfully.')
 		} catch (error) {
@@ -92,16 +91,15 @@ export default function MusicPage() {
 							)}
 							disabled={loading}
 						>
-							{/* Generate {loading && <Loader2 className="inline-block animate-spin ml-2" />} */}
 							Generate <span className="ml-2">{loading && <Loader2 className="inline-block animate-spin" />}</span>
 						</button>
 					</form>
 				</Form>
 			</div>
-			{music.current && (
+			{music && (
 				<div className="mt-10">
 					<audio controls className="w-full">
-						<source src={music.current} type="audio/wav" />
+						<source src={music} type="audio/wav" />
 						Your browser does not support the audio element.
 					</audio>
 				</div>

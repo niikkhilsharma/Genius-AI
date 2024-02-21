@@ -14,7 +14,7 @@ export async function POST(req: Request) {
 				top_k: 250,
 				top_p: 0,
 				prompt: prompt,
-				duration: 3,
+				duration: 5,
 				temperature: 1,
 				continuation: false,
 				model_version: 'melody-large',
@@ -26,5 +26,7 @@ export async function POST(req: Request) {
 			},
 		})
 		return NextResponse.json({ output })
-	} catch (error) {}
+	} catch (error) {
+		console.log(error)
+	}
 }
