@@ -29,6 +29,6 @@ export async function POST(req: Request) {
 		return NextResponse.json({ output })
 	} catch (error) {
 		console.log(error)
-		return NextResponse.json('Failed to generate music.', { status: 500 })
+		return NextResponse.json({ error: 'Failed to generate music.' }, { status: 500 })
 	}
 }

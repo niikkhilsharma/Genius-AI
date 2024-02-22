@@ -44,6 +44,9 @@ export default function MusicPage() {
 				body: JSON.stringify(values),
 			})
 			const data = await res.json()
+
+			if (res.status !== 200) throw new Error(data.error)
+
 			setMusic(data.output)
 			setLoading(false)
 			toast.success('Music generated successfully.')
