@@ -49,6 +49,7 @@ export default function MusicPage() {
 			toast.success('Music generated successfully.')
 		} catch (error) {
 			console.log(error)
+			setLoading(false)
 			toast.error('Failed to generate music.')
 		}
 	}

@@ -25,8 +25,10 @@ export async function POST(req: Request) {
 				classifier_free_guidance: 3,
 			},
 		})
+
 		return NextResponse.json({ output })
 	} catch (error) {
 		console.log(error)
+		return NextResponse.json('Failed to generate music.', { status: 500 })
 	}
 }
