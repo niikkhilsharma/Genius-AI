@@ -26,6 +26,7 @@
     "react-hook-form": "^7.50.1",
     "react-hot-toast": "^2.4.1",
     "replicate": "^0.27.1",
+    "sharp": "^0.33.2",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
     "typewriter-effect": "^2.21.0",

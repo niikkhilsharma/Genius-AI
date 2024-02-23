@@ -20,7 +20,7 @@ const musicPrompt = z.object({
 })
 
 export default function MusicPage() {
-	const [music, setMusic] = useState<string>()
+	const [music, setMusic] = useState<any>()
 	const [loading, setLoading] = useState(false)
 
 	// 1. Define your form.

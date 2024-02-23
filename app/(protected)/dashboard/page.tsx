@@ -5,13 +5,13 @@ import { Code, ImageIcon, MessageSquare, Music, VideoIcon, ArrowRight } from 'lu
 import Link from 'next/link'
 
 const tools = [
-	{
-		label: 'Conversation',
-		icon: MessageSquare,
-		href: '/conversation',
-		color: 'text-violet-500',
-		bgColor: 'bg-violet-500/10',
-	},
+	// {
+	// 	label: 'Conversation',
+	// 	icon: MessageSquare,
+	// 	href: '/conversation',
+	// 	color: 'text-violet-500',
+	// 	bgColor: 'bg-violet-500/10',
+	// },
 	{
 		label: 'Music Generation',
 		icon: Music,
@@ -33,13 +33,13 @@ const tools = [
 		bgColor: 'bg-orange-700/10',
 		href: '/video',
 	},
-	{
-		label: 'Code Generation',
-		icon: Code,
-		color: 'text-green-700',
-		bgColor: 'bg-green-700/10',
-		href: '/code',
-	},
+	// {
+	// 	label: 'Code Generation',
+	// 	icon: Code,
+	// 	color: 'text-green-700',
+	// 	bgColor: 'bg-green-700/10',
+	// 	href: '/code',
+	// },
 ]
 
 export default function DashboardPage() {
