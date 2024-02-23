@@ -1,47 +1,8 @@
-# Genius-AI ✨🤖💻🗃️
-An AI-powered PDF chat built with Next.js 14, Langchain, and Prisma
+# Upcoming Features 🚀
+### Here's what's coming next to Genius-AI:
 
-## ✨ What we provide ✨
-🚀 Revolutionize tech learning with conversation! Say farewell to static docs—our AI-powered platform guides you through tech info effortlessly. 💬 Join the conversation now!
+Image Background Removal: Enhance your PDFs with cleaner images. Our upcoming feature will seamlessly remove backgrounds from images, ensuring your documents look polished and professional.
 
-## 👷🏾‍♂️ Architecture 
+Image Enhancement with Clearify: Make your images clearer and sharper using our new Clearify integration. Say goodbye to blurry or pixelated images in your PDFs, as Clearify will optimize them for maximum clarity.
 
-<img width="1402" alt="Embed LLM" src="public/images/architecture.png">
-
-## 👩‍🚀 Description
-
-Built with:
-- ✅ Next.js 14
-- ✅ Shadcn-ui
-- ✅ Langchain integration
-- ✅ MongoDB as the knowledge store
-- ✅ Prisma as the database ORM
-
-## 🗃️ ENV Variables
-
-Here are the environment variables required to run this project:
-
-- **NEXTAUTH_URL**: The URL of your Next.js application.
-- **NEXTAUTH_SECRET**: Secret used for session encryption in NextAuth.js.
-- **GOOGLE_CLIENT_ID**: Client ID for Google OAuth authentication.
-- **GOOGLE_CLIENT_SECRET**: Client secret for Google OAuth authentication.
-- **GITHUB_APP_CLIENT_ID**: Client ID for GitHub OAuth authentication.
-- **GITHUB_APP_CLIENT_SECRET**: Client secret for GitHub OAuth authentication.
-- **DB_URL**: URL for connecting to your MongoDB database. (Starts with `mongodb+srv://`)
-- **DATABASE_URL**: Prisma database connection URL. (Starts with `prisma://`) - Note: `DATABASE_URL` is the Prisma accelerate connection URL.
-- **OPENAI_API_KEY**: API key for accessing OpenAI services.
-
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command        | Action                                          |
-| :------------- | :---------------------------------------------- |
-| `pnpm install` | Installs dependencies                           |
-| `npm run dev`  | Starts the local dev server at `localhost:3000` |
-
-## 👏🏽 Contributing
-
-Pull requests are welcome, before creating a PR talk to me on [gmail](mailto:niikkhilsharma@gmail.com). For major changes, please open an issue first
-to discuss what you would like to change.
+Stay tuned for these exciting updates as we continue to revolutionize PDF chats with cutting-edge AI technology! 🌟🤖💼
