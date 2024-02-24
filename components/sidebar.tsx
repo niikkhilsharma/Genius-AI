@@ -64,8 +64,14 @@ const Sidebar = () => {
 	return (
 		<div>
 			<Link href="/dashboard" className="flex justify-start items-center p-6">
-				<Image src="/logo.png" alt="avatar" width={400} height={400} className="w-8 h-8 mr-4" />
-				<h1 className={cn('text-2xl font-bold text-white', montserrat.className)}>Genius</h1>
+				<Image
+					src="https://avatars.githubusercontent.com/u/131470832?s=100&v=4"
+					alt="avatar"
+					width={400}
+					height={400}
+					className="w-10 h-10 mr-4"
+				/>
+				<h1 className={cn('text-2xl font-bold text-white', montserrat.className)}>Genius AI</h1>
 			</Link>
 			<div className="px-3 mt-8 space-y-1">
 				{routes.map((route, index) => (

@@ -17,7 +17,13 @@ const LandingNavbar = () => {
 	return (
 		<div className="w-full flex items-center justify-between py-4 text-white">
 			<div className="flex items-center">
-				<Image src="/logo.png" alt="avatar" width={400} height={400} className="w-8 h-8 mr-4" />
+				<Image
+					src="https://avatars.githubusercontent.com/u/131470832?s=100&v=4"
+					alt="avatar"
+					width={400}
+					height={400}
+					className="w-10 h-10 mr-4"
+				/>
 				<h1 className={cn(`text-2xl font-semibold ${montserratFont.className}`)}>Genius</h1>
 			</div>
 			<div>

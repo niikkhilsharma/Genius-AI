@@ -12,6 +12,10 @@ const nextConfig = {
 				protocol: 'https',
 				hostname: 'replicate.delivery',
 			},
+			{
+				protocol: 'https',
+				hostname: 'avatars.githubusercontent.com',
+			},
 		],
 	},
 }
