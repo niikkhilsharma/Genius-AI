@@ -1,6 +1,10 @@
 import { NextAuthOptions } from 'next-auth'
-import GithubProvider from 'next-auth/providers/github'
+// import GithubProvider from 'next-auth/providers/github'
+import { PrismaAdapter } from '@auth/prisma-adapter'
 import GoogleProvider from 'next-auth/providers/google'
+import { PrismaClient } from '@prisma/client'
+
+const prisma = new PrismaClient()
 
 export const authOptions: NextAuthOptions = {
 	theme: {
@@ -16,5 +20,6 @@ export const authOptions: NextAuthOptions = {
 			clientSecret: process.env.GOOGLE_SECRET_ID as string,
 		}),
 	],
+	adapter: PrismaAdapter(prisma),
 	secret: process.env.NEXTAUTH_SECRET as string,
 }

@@ -6,3 +6,9 @@ Image Background Removal: Enhance your PDFs with cleaner images. Our upcoming fe
 Image Enhancement with Clearify: Make your images clearer and sharper using our new Clearify integration. Say goodbye to blurry or pixelated images in your PDFs, as Clearify will optimize them for maximum clarity.
 
 Stay tuned for these exciting updates as we continue to revolutionize PDF chats with cutting-edge AI technology! 🌟🤖💼
+export { default } from 'next-auth/middleware'
+
+export const config = {
+	// matcher: '/((?!api/auth|auth|images|_next/static|_next/image|favicon.ico|^/$).+)',
+	matcher: '/((?!api/auth/[^/]+$|auth|api/auth|images|_next/static|_next/image|favicon.ico|^/$).+)',
+}
