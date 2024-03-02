@@ -39,6 +39,7 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
   image         String?
+  isAdmin       Boolean   @default(false)
   accounts      Account[]
   sessions      Session[]
 }
@@ -49,4 +50,28 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model profile {
+  id             String    @id @default(cuid())
+  name           String
+  email          String    @unique
+  emailVerified  DateTime?
+  image          String
+  isAdmin        Boolean   @default(false)
+  isPro          Boolean   @default(false)
+  amountPaid     Int       @default(0)
+  paidOn         DateTime?
+  runTimeGranted Int       @default(0) //this is the runtime which will be given during the payment.
+  userId         String    @unique
+}
+
+// This model contains info about the user request and time utilized
+model costing {
+  id        String   @id @default(cuid())
+  profileId String   @unique
+  model     String
+  status    Boolean
+  runTime   Int
+  createdAt DateTime @default(now())
 }

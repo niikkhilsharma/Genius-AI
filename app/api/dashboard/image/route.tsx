@@ -17,7 +17,7 @@ export async function POST(req: Request) {
 					height: 768,
 					prompt: prompt,
 					scheduler: 'K_EULER',
-					num_outputs: 1,
+					num_outputs: 2,
 					guidance_scale: 7.5,
 					num_inference_steps: 50,
 				},
