@@ -1,7 +1,7 @@
 import { Card } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 
-import { Code, ImageIcon, MessageSquare, Music, VideoIcon, ArrowRight } from 'lucide-react'
+import { Code, ImageIcon, MessageSquare, Music, VideoIcon, ArrowRight, Images } from 'lucide-react'
 import Link from 'next/link'
 
 const tools = [
@@ -32,6 +32,13 @@ const tools = [
 		color: 'text-orange-700',
 		bgColor: 'bg-orange-700/10',
 		href: '/video',
+	},
+	{
+		label: 'Restore Image',
+		icon: Images,
+		color: 'text-red-700',
+		bgColor: 'bg-red-700/10',
+		href: '/restore-images',
 	},
 	// {
 	// 	label: 'Code Generation',

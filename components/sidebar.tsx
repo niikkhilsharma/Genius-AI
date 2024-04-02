@@ -8,7 +8,7 @@ import { usePathname } from 'next/navigation'
 
 import { Montserrat } from 'next/font/google'
 
-import { Code, ImageIcon, LayoutDashboard, MessageSquare, Music, Settings, VideoIcon } from 'lucide-react'
+import { Code, ImageIcon, LayoutDashboard, MessageSquare, Music, Settings, VideoIcon, Images } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from './ui/button'
 
@@ -42,6 +42,13 @@ const routes = [
 		icon: Music,
 		color: 'text-emerald-500',
 		href: '/music',
+	},
+	{
+		label: 'Restore Image',
+		icon: Images,
+		color: 'text-red-700',
+		bgColor: 'bg-red-700/10',
+		href: '/restore-images',
 	},
 	// {
 	// 	label: 'Code Generation',

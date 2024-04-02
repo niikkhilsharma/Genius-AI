@@ -3,6 +3,7 @@
 import { NextAuthOptions } from 'next-auth'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import GoogleProvider from 'next-auth/providers/google'
+import GithubProvider from 'next-auth/providers/github'
 import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
@@ -23,8 +24,16 @@ export const authOptions: NextAuthOptions = {
 			clientId: process.env.GOOGLE_CLIENT_ID as string,
 			clientSecret: process.env.GOOGLE_SECRET_ID as string,
 		}),
+		GithubProvider({
+			clientId: process.env.GITHUB_CLIENT_ID as string,
+			clientSecret: process.env.GITHUB_SECRET as string,
+		}),
 	],
 	callbacks: {
+		async signIn(user, account, profile) {
+			console.log('running signIn callback')
+			return user
+		},
 		async session({ token, session }) {
 			if (token) {
 				session.user.isAdmin = token.isAdmin
