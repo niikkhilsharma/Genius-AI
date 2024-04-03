@@ -1,6 +1,17 @@
 {
-	"name": "genius-clone",
+	"name": "genius-ai",
 	"version": "0.1.0",
+	"pnpm": {
+		"supportedArchitectures": {
+			"os": [
+				"darwin",
+				"current"
+			],
+			"cpu": [
+				"arm64"
+			]
+		}
+	},
 	"private": true,
 	"scripts": {
 		"dev": "next dev",
@@ -35,7 +46,7 @@
 		"react-hot-toast": "^2.4.1",
 		"react-images-uploading": "^3.1.7",
 		"replicate": "^0.27.1",
-		"sharp": "^0.33.2",
+		"sharp": "^0.33.3",
 		"tailwind-merge": "^2.2.1",
 		"tailwindcss-animate": "^1.0.7",
 		"typewriter-effect": "^2.21.0",
