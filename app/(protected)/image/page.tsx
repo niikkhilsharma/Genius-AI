@@ -1,5 +1,4 @@
 'use client'
-
 import React, { useState } from 'react'
 
 import { z } from 'zod'
@@ -12,7 +11,6 @@ import { ParallaxScroll } from '@/components/aui/parallax-scroll'
 
 import ResponsePageHeading from '@/components/response-page/response-page-heading'
 import { ImageIcon } from 'lucide-react'
-import Image from 'next/image'
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { cn } from '@/lib/utils'
