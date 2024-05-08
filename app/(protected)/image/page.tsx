@@ -43,6 +43,7 @@ export default function ImagePage() {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
+					'Cache-Control': 'no-store',
 				},
 				body: JSON.stringify(values),
 			})
@@ -83,7 +84,7 @@ export default function ImagePage() {
 								<FormItem>
 									<FormControl>
 										<Input
-											placeholder="an astronaut riding a horse on mars, hd, dramatic lighting"
+											placeholder="An astronaut riding a rainbow unicorn, cinematic, dramatic"
 											{...field}
 											className="h-20 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
 										/>

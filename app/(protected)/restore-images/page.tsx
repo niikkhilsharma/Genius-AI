@@ -13,6 +13,8 @@ import { Input } from '@/components/ui/input'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Skeleton } from '@/components/ui/skeleton'
 
 const imagePrompt = z.object({
 	prompt: z
@@ -114,40 +116,19 @@ const RestoreImagesPage = () => {
 								</FormItem>
 							)}
 						/>
-						{prompt ? (
-							<button
-								onClick={() =>
-									downloadImage(
-										`https://res.cloudinary.com/niikkhilsharma/image/upload/e_gen_remove:prompt_${prompt}/${imgPublicId}.jpg`
-									)
-								}
-								className={cn(
-									'shadow-[0_4px_14px_0_rgb(0,118,255,39%)] hover:shadow-[0_6px_20px_rgba(0,118,255,23%)] hover:bg-[rgba(0,118,255,0.9)] pl-8 pr-6 py-2 bg-[#0070f3] rounded-md text-white font-light transition duration-200 ease-linear absolute top-[25%] right-0 mr-4',
-									loading && 'cursor-not-allowed bg-[#0070f3]/90 hover:bg-red-700/90'
-								)}
-								disabled={loading}
-							>
-								<span>
-									Download
-									<Download className="inline-block ml-2" />
-									{loading && <Loader2 className="inline-block animate-spin ml-2" />}
-								</span>
-							</button>
-						) : (
-							<button
-								type="submit"
-								className={cn(
-									'shadow-[0_4px_14px_0_rgb(0,118,255,39%)] hover:shadow-[0_6px_20px_rgba(0,118,255,23%)] hover:bg-[rgba(0,118,255,0.9)] pl-8 pr-6 py-2 bg-[#0070f3] rounded-md text-white font-light transition duration-200 ease-linear absolute top-[25%] right-0 mr-4',
-									loading && 'cursor-not-allowed bg-[#0070f3]/90 hover:bg-red-700/90'
-								)}
-								disabled={loading}
-							>
-								<span>
-									Generate
-									{loading && <Loader2 className="inline-block animate-spin ml-2" />}
-								</span>
-							</button>
-						)}
+						<button
+							type="submit"
+							className={cn(
+								'shadow-[0_4px_14px_0_rgb(0,118,255,39%)] hover:shadow-[0_6px_20px_rgba(0,118,255,23%)] hover:bg-[rgba(0,118,255,0.9)] pl-8 pr-6 py-2 bg-[#0070f3] rounded-md text-white font-light transition duration-200 ease-linear absolute top-[25%] right-0 mr-4',
+								(loading || !image) && 'cursor-not-allowed bg-[#0070f3]/90 hover:bg-red-700/90'
+							)}
+							disabled={loading || !image}
+						>
+							<span>
+								Generate
+								{loading && <Loader2 className="inline-block animate-spin ml-2" />}
+							</span>
+						</button>
 					</form>
 				</Form>
 			</div>
@@ -190,8 +171,8 @@ const RestoreImagesPage = () => {
 							<>
 								{imageList.map((image, index) => (
 									<div key={index} className="image-item">
-										<div className="w-full flex justify-center gap-4">
-											<div className="w-1/2">
+										<div className="w-full flex flex-col sm:flex-row justify-center gap-4">
+											<div className="sm:w-1/2">
 												<Image
 													src={image['data_url']}
 													alt=""
@@ -199,30 +180,24 @@ const RestoreImagesPage = () => {
 													height={300}
 													className="mx-auto w-full max-h-96 object-contain"
 												/>
-												<div className="image-item__btn-wrapper flex justify-start gap-4 mt-4">
-													<Button
-														className="bg-blue-600 hover:bg-blue-600/95"
-														onClick={() => onImageUpdate(index)}
-														disabled={loading}
-													>
-														Update
-													</Button>
-													<Button variant={'destructive'} onClick={() => onImageRemove(index)} disabled={loading}>
-														Remove
-													</Button>
-												</div>
 											</div>
-											<div className="border-l-2 border-dashed border-blue-600 w-1/2">
+											<div className="hidden sm:block border-dashed border-2 border-blue-600" />
+											<div className="sm:w-1/2 flex justify-start items-center">
 												{prompt ? (
-													<Image
-														src={`https://res.cloudinary.com/niikkhilsharma/image/upload/e_gen_remove:prompt_${prompt}/${imgPublicId}.jpg`}
-														alt=""
-														width={300}
-														height={300}
-														className="mx-auto w-full max-h-96 object-contain"
-													/>
+													<Avatar className="w-full h-full rounded-none">
+														<AvatarImage
+															src={`https://res.cloudinary.com/niikkhilsharma/image/upload/e_gen_remove:prompt_${prompt}/${imgPublicId}.jpg`}
+															alt=""
+															width={300}
+															height={300}
+															className="mx-auto w-full max-h-96 object-contain"
+														/>
+														<AvatarFallback className="rounded-none max-h-96">
+															<Skeleton className="w-full h-full max-h-96" />
+														</AvatarFallback>
+													</Avatar>
 												) : (
-													<div className="flex flex-col justify-center items-start p-4 h-full gap-2">
+													<div className="flex flex-col justify-center items-center px-4 h-full gap-2">
 														<div className="bg-blue-300 py-1 px-2 rounded-md shadow-lg hover:bg-blue-400">
 															<span className="mr-1">1.</span>Right a prompt to remove the object from the image.
 														</div>
@@ -232,6 +207,14 @@ const RestoreImagesPage = () => {
 													</div>
 												)}
 											</div>
+										</div>
+										<div className="image-item__btn-wrapper flex justify-start gap-4 mt-4">
+											<Button className="bg-blue-600 hover:bg-blue-600/95" onClick={() => onImageUpdate(index)} disabled={loading}>
+												Update
+											</Button>
+											<Button variant={'destructive'} onClick={() => onImageRemove(index)} disabled={loading}>
+												Remove
+											</Button>
 										</div>
 									</div>
 								))}
