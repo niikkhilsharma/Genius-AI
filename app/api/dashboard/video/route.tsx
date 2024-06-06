@@ -1,11 +1,15 @@
 import { NextResponse } from 'next/server'
 import Replicate from 'replicate'
 
+import { updateRuntimeUsed } from '@/utils/database/functions'
+
 const replicate = new Replicate({
 	auth: process.env.REPLICATE_API_TOKEN,
 })
 
 export async function POST(req: Request) {
+	const startTime = process.hrtime()
+
 	try {
 		const { prompt } = await req.json()
 
@@ -21,9 +25,18 @@ export async function POST(req: Request) {
 			}
 		)
 
+		// Calculate the api runtime and update it in the database.
+		const endTime = process.hrtime(startTime)
+		const elapsedTimeInSeconds = endTime[0] + endTime[1] / 1e9
+		updateRuntimeUsed(elapsedTimeInSeconds, 0.1)
+
 		console.log(output)
 		return NextResponse.json({ output })
 	} catch (error) {
+		const endTime = process.hrtime(startTime)
+		const elapsedTimeInSeconds = endTime[0] + endTime[1] / 1e9
+		updateRuntimeUsed(elapsedTimeInSeconds, 0.1)
+
 		console.log(error)
 		return NextResponse.json({ error: 'Failed to generate music.' }, { status: 500 })
 	}

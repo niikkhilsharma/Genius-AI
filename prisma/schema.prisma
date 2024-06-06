@@ -3,8 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_DATABASE_URL")
 }
 
 model Account {
@@ -39,7 +40,6 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
   image         String?
-  isAdmin       Boolean   @default(false)
   accounts      Account[]
   sessions      Session[]
 }
@@ -53,25 +53,29 @@ model VerificationToken {
 }
 
 model profile {
-  id             String    @id @default(cuid())
-  name           String
-  email          String    @unique
-  emailVerified  DateTime?
-  image          String
-  isAdmin        Boolean   @default(false)
-  isPro          Boolean   @default(false)
-  amountPaid     Int       @default(0)
-  paidOn         DateTime?
-  runTimeGranted Int       @default(0) //this is the runtime which will be given during the payment.
-  userId         String    @unique
+  id              String         @id @default(cuid())
+  name            String
+  email           String         @unique
+  emailVerified   DateTime?
+  image           String
+  isAdmin         Boolean        @default(false)
+  isPro           Boolean        @default(false)
+  totalAmountPaid Float          @default(0)
+  totalAmountUsed Float          @default(0)
+  runtimeRecieved Float          @default(0)
+  runTimeUsed     Float          @default(0)
+  apiCallCount    Int            @default(0)
+  requestRunning  Boolean        @default(false)
+  transactions    transactions[]
 }
 
-// This model contains info about the user request and time utilized
-model costing {
-  id        String   @id @default(cuid())
-  profileId String   @unique
-  model     String
-  status    Boolean
-  runTime   Int
-  createdAt DateTime @default(now())
+model transactions {
+  id                  String   @id @default(cuid())
+  userId              String
+  amount              Float
+  razorpay_payment_id String
+  status              String
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  user                profile  @relation(fields: [userId], references: [id])
 }

@@ -1,11 +1,13 @@
 'use client'
 import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { Music, Loader2 } from 'lucide-react'
-import toast from 'react-hot-toast'
+import { ToastAction } from '@/components/ui/toast'
+import { useToast } from '@/components/ui/use-toast'
 
 import ResponsePageHeading from '@/components/response-page/response-page-heading'
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form'
@@ -22,6 +24,8 @@ const musicPrompt = z.object({
 export default function MusicPage() {
 	const [music, setMusic] = useState<any>()
 	const [loading, setLoading] = useState(false)
+	const { toast } = useToast()
+	const router = useRouter()
 
 	// 1. Define your form.
 	const form = useForm<z.infer<typeof musicPrompt>>({
@@ -49,11 +53,24 @@ export default function MusicPage() {
 
 			setMusic(data.output)
 			setLoading(false)
-			toast.success('Music generated successfully.')
+			toast({
+				title: 'Music generated successfully. 🎉',
+			})
 		} catch (error) {
 			console.log(error)
 			setLoading(false)
-			toast.error('Failed to generate music.')
+
+			if ((error as Error).message === 'FREE TRIAL LIMIT EXCEEDED') {
+				toast({
+					title: 'Free trial limit exceeded',
+					description: 'You have exceeded the free trial limit of 5 API calls.',
+					action: (
+						<ToastAction altText="Pay Now" onClick={() => router.push('/pricing')}>
+							Pay Now
+						</ToastAction>
+					),
+				})
+			}
 		}
 	}
 

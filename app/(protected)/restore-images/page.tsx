@@ -1,10 +1,11 @@
 'use client'
 import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { Download, Images, Loader2 } from 'lucide-react'
+import { Images, Loader2 } from 'lucide-react'
 import ImageUploading, { ImageListType } from 'react-images-uploading'
 
 import ResponsePageHeading from '@/components/response-page/response-page-heading'
@@ -15,6 +16,8 @@ import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Skeleton } from '@/components/ui/skeleton'
+import { useToast } from '@/components/ui/use-toast'
+import { ToastAction } from '@/components/ui/toast'
 
 const imagePrompt = z.object({
 	prompt: z
@@ -28,6 +31,9 @@ const RestoreImagesPage = () => {
 	const [imgPublicId, setImgPublicId] = useState<any>()
 	const [loading, setLoading] = useState(false)
 	const [prompt, setPrompt] = useState('')
+	const router = useRouter()
+
+	const { toast } = useToast()
 
 	const form = useForm<z.infer<typeof imagePrompt>>({
 		resolver: zodResolver(imagePrompt),
@@ -58,30 +64,50 @@ const RestoreImagesPage = () => {
 
 	// handling image upload
 	const onChange = async (imageList: ImageListType, addUpdateIndex: number[] | undefined) => {
-		if (imageList.length !== 0) {
-			setLoading(true)
+		try {
+			if (imageList.length !== 0) {
+				setLoading(true)
 
-			console.log('image list below')
-			console.log(imageList, addUpdateIndex)
-			console.log('image list above')
+				console.log('image list below')
+				console.log(imageList, addUpdateIndex)
+				console.log('image list above')
 
-			setImage(imageList)
+				setImage(imageList)
 
-			const res = await fetch('/api/cloudnary/upload', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({ imageBlob: imageList[0].data_url }),
-			})
-			const response = await res.json()
-			console.log('response from api', response)
-			setImgPublicId(response.publicId)
+				const res = await fetch('/api/cloudnary/upload', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({ imageBlob: imageList[0].data_url }),
+				})
+				const response = await res.json()
 
-			setLoading(false)
-		} else {
+				console.log('response from api', response)
+				setImgPublicId(response.publicId)
+				setLoading(false)
+
+				if (res.status !== 200) throw new Error(response.error)
+			} else {
+				setImage('')
+				setImgPublicId('')
+			}
+		} catch (error) {
+			console.log(error)
 			setImage('')
 			setImgPublicId('')
+
+			if ((error as Error).message === 'FREE TRIAL LIMIT EXCEEDED') {
+				toast({
+					title: 'Free trial limit exceeded',
+					description: 'You have exceeded the free trial limit of 5 API calls.',
+					action: (
+						<ToastAction altText="Pay Now" onClick={() => router.push('/pricing')}>
+							Pay Now
+						</ToastAction>
+					),
+				})
+			}
 		}
 	}
 

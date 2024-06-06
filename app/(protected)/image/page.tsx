@@ -1,11 +1,13 @@
 'use client'
 import React, { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { Loader2 } from 'lucide-react'
-import toast from 'react-hot-toast'
+import { ToastAction } from '@/components/ui/toast'
+import { useToast } from '@/components/ui/use-toast'
 
 import { ParallaxScroll } from '@/components/aui/parallax-scroll'
 
@@ -25,6 +27,8 @@ const musicPrompt = z.object({
 export default function ImagePage() {
 	const [images, setImages] = useState<any>('')
 	const [loading, setLoading] = useState(false)
+	const { toast } = useToast()
+	const router = useRouter()
 
 	// 1. Define your form.
 	const form = useForm<z.infer<typeof musicPrompt>>({
@@ -54,11 +58,23 @@ export default function ImagePage() {
 			setImages(data.output)
 			console.log(data.ouput)
 			setLoading(false)
-			toast.success('Image generated successfully.')
+			toast({
+				title: 'Image generated successfully. 🎉',
+			})
 		} catch (error) {
 			console.log(error)
 			setLoading(false)
-			toast.error('Failed to generate Image.')
+			if ((error as Error).message === 'FREE TRIAL LIMIT EXCEEDED') {
+				toast({
+					title: 'Free trial limit exceeded',
+					description: 'You have exceeded the free trial limit of 5 API calls.',
+					action: (
+						<ToastAction altText="Pay Now" onClick={() => router.push('/pricing')}>
+							Pay Now
+						</ToastAction>
+					),
+				})
+			}
 		}
 	}
 
