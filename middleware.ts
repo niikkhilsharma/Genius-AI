@@ -14,7 +14,7 @@ export default withAuth(
 
 		const isGoingToCloudnary = req.nextUrl.pathname.startsWith('/api/cloudnary')
 
-		console.log(user)
+		// console.log(user)
 
 		const profile = await prisma.profile.findUnique({
 			where: {
