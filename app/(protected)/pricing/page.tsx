@@ -52,7 +52,7 @@ const PricingPage = () => {
 			order_id: data.id,
 			description: 'Thankyou for your choosing our service.',
 			image: 'https://manuarora.in/logo.png',
-			handler: function (response) {
+			handler: function (response: any) {
 				// Validate payment at server - using webhooks is a better idea.
 				// alert(response.razorpay_payment_id)
 				// alert(response.razorpay_order_id)
@@ -84,7 +84,7 @@ const PricingPage = () => {
 			},
 		}
 
-		const paymentObject = new window.Razorpay(options)
+		const paymentObject = new (window as any).Razorpay(options)
 		paymentObject.open()
 	}
 
