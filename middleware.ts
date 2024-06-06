@@ -6,8 +6,7 @@ import { withAccelerate } from '@prisma/extension-accelerate'
 
 export default withAuth(
 	async function middleware(req) {
-		// const prisma = new PrismaClient().$extends(withAccelerate())
-		const prisma = new PrismaClient()
+		const prisma = new PrismaClient().$extends(withAccelerate())
 
 		const user = req.nextauth?.token
 		const isRequestGoingToDashboard = req.nextUrl.pathname.startsWith('/api/dashboard')
