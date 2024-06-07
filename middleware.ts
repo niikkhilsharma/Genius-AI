@@ -28,7 +28,7 @@ export default withAuth(
 		if ((isRequestGoingToDashboard || isGoingToCloudnary) && user?.isPro) {
 			return NextResponse.next()
 		} else if ((isRequestGoingToDashboard || isGoingToCloudnary) && !user?.isPro) {
-			if (profile && profile.apiCallCount <= 5) {
+			if (profile && profile.apiCallCount < 5) {
 				return NextResponse.next()
 			} else {
 				return NextResponse.json({ error: 'FREE TRIAL LIMIT EXCEEDED' }, { status: 403 })

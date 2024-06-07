@@ -5,5 +5,8 @@ export async function POST(req: Request) {
 	console.log('this is from the payment success route')
 	console.log('signature', signature)
 
+	const json = await req.json()
+	console.log('json', json)
+
 	return NextResponse.json({ message: 'success' })
 }
