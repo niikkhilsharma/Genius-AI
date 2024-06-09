@@ -23,7 +23,7 @@ export async function POST(req: Request) {
 	console.log('signature', signature)
 
 	const json = await req.json()
-	console.log('json', json)
+	console.log('json obj', json)
 	console.log('more', json.payload['payment.downtime'])
 
 	return NextResponse.json({ message: 'success' })
