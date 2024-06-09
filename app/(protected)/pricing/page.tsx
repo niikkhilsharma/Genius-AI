@@ -1,13 +1,18 @@
 'use client'
 
-import React from 'react'
+import React, { use } from 'react'
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 
+import { useSession } from 'next-auth/react'
 import { useToast } from '@/components/ui/use-toast'
 import { Button } from '@/components/ui/button'
 
 const PricingPage = () => {
 	const { toast } = useToast()
+	const { data, status } = useSession()
+
+	if (status === 'loading') return null
+	console.log(data)
 
 	const initializeRazorpay = () => {
 		return new Promise(resolve => {
@@ -78,9 +83,8 @@ const PricingPage = () => {
 				}
 			},
 			prefill: {
-				name: 'Nikhil Sharma',
-				email: 'niikkhilsharma@gmail.com',
-				contact: '8504920637',
+				name: data.user.name,
+				email: data.user.email,
 			},
 		}
 

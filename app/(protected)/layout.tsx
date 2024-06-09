@@ -2,6 +2,8 @@ import Navbar from '@/components/navbar'
 import Sidebar from '@/components/sidebar'
 import { Toaster } from 'react-hot-toast'
 
+import { Providers } from '@/lib/next-auth-provider'
+
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<div className="h-full">
@@ -11,7 +13,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
 			</div>
 			<main className="md:pl-72">
 				<Navbar />
-				{children}
+				<Providers>{children}</Providers>
 			</main>
 		</div>
 	)
