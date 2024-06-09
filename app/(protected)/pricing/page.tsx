@@ -1,6 +1,6 @@
 'use client'
 
-import React, { use } from 'react'
+import React from 'react'
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 
 import { useSession } from 'next-auth/react'
@@ -46,15 +46,15 @@ const PricingPage = () => {
 				reciept,
 			}),
 		})
-		const data = await response.json()
-		console.log(data)
+		const razorpayData = await response.json()
+		console.log(razorpayData)
 
 		const options = {
 			key: process.env.NEXT_PUBLIC_Razorpay_key_id, // Enter the Key ID generated from the Dashboard
 			name: 'Genius AI Pvt. Ltd.',
-			currency: data.currency,
-			amount: data.amount,
-			order_id: data.id,
+			currency: razorpayData.currency,
+			amount: razorpayData.amount,
+			order_id: razorpayData.id,
 			description: 'Thankyou for your choosing our service.',
 			image: 'https://manuarora.in/logo.png',
 			handler: function (response: any) {
