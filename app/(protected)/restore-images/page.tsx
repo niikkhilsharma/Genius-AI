@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { Images, Loader2 } from 'lucide-react'
+import { ImageDown, Images, Loader2 } from 'lucide-react'
 import ImageUploading, { ImageListType } from 'react-images-uploading'
 
 import ResponsePageHeading from '@/components/response-page/response-page-heading'
@@ -164,11 +164,7 @@ const RestoreImagesPage = () => {
 					// write your building UI
 					<div className="upload__image-wrapper my-10">
 						{imageList.length === 0 ? (
-							<div
-								onClick={onImageUpload}
-								{...dragProps}
-								className={'flex items-center justify-center w-full hover:cursor-pointer'}
-							>
+							<div onClick={onImageUpload} {...dragProps} className={'flex items-center justify-center w-full hover:cursor-pointer'}>
 								<span
 									className={cn(
 										'flex flex-col rounded-lg border-4 border-dashed w-full h-96 p-10 group text-center',
@@ -199,29 +195,39 @@ const RestoreImagesPage = () => {
 									<div key={index} className="image-item">
 										<div className="w-full flex flex-col sm:flex-row justify-center gap-4">
 											<div className="sm:w-1/2">
-												<Image
-													src={image['data_url']}
-													alt=""
-													width={300}
-													height={300}
-													className="mx-auto w-full max-h-96 object-contain"
-												/>
+												<Image src={image['data_url']} alt="" width={300} height={300} className="mx-auto w-full max-h-96 object-contain" />
 											</div>
 											<div className="hidden sm:block border-dashed border-2 border-blue-600" />
 											<div className="sm:w-1/2 flex justify-start items-center">
 												{prompt ? (
-													<Avatar className="w-full h-full rounded-none">
-														<AvatarImage
-															src={`https://res.cloudinary.com/niikkhilsharma/image/upload/e_gen_remove:prompt_${prompt}/${imgPublicId}.jpg`}
-															alt=""
-															width={300}
-															height={300}
-															className="mx-auto w-full max-h-96 object-contain"
-														/>
-														<AvatarFallback className="rounded-none max-h-96">
-															<Skeleton className="w-full h-full max-h-96" />
-														</AvatarFallback>
-													</Avatar>
+													<div className="flex flex-col justify-center items-center h-full gap-2 w-full relative group">
+														<Avatar className="w-full h-full rounded-none shadow-lg absolute top-0">
+															<AvatarImage
+																src={`https://res.cloudinary.com/niikkhilsharma/image/upload/e_gen_remove:prompt_${prompt}/${imgPublicId}.jpg`}
+																alt=""
+																width={300}
+																height={300}
+																className="mx-auto w-full max-h-96 object-contain hover:cursor-pointer"
+																onClick={() => {
+																	downloadImage(image['data_url'])
+																}}
+															/>
+															<AvatarFallback className="rounded-none max-h-96">
+																<Skeleton className="w-full h-full max-h-96" />
+															</AvatarFallback>
+														</Avatar>
+
+														<div className="w-full h-full relative flex justify-center items-center">
+															<div className="group-hover:bg-black group-hover:opacity-35 w-full h-full flex justify-center items-center absolute top-0"></div>
+															<Button
+																className="z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+																variant={'secondary'}
+																onClick={() => downloadImage(image['data_url'])}
+															>
+																Download <ImageDown className="ml-2" />
+															</Button>
+														</div>
+													</div>
 												) : (
 													<div className="flex flex-col justify-center items-center px-4 h-full gap-2">
 														<div className="bg-blue-300 py-1 px-2 rounded-md shadow-lg hover:bg-blue-400">

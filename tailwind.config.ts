@@ -77,7 +77,7 @@ const config = {
 			},
 		},
 	},
-	plugins: [require('tailwindcss-animate'), addVariablesForColors],
+	plugins: [require('tailwindcss-animate'), addVariablesForColors, require('@xpd/tailwind-3dtransforms')],
 } satisfies Config
 
 export default config
