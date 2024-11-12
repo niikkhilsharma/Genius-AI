@@ -79,3 +79,14 @@ model transactions {
   updatedAt           DateTime @updatedAt
   user                profile  @relation(fields: [userId], references: [id])
 }
+
+model contactUs {
+  id          String  @id @default(cuid())
+  firstName   String
+  lastName    String?
+  company     String?
+  email       String
+  country     String?
+  phoneNumber String?
+  message     String
+}

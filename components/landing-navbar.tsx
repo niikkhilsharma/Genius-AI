@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 import { Montserrat } from 'next/font/google'
 
-import { Button } from './ui/button'
+import { Button, buttonVariants } from './ui/button'
 import { cn } from '@/lib/utils'
 
 const montserratFont = Montserrat({
@@ -20,10 +20,13 @@ const LandingNavbar = () => {
 				<Image src="/logo.png" alt="avatar" width={400} height={400} className="w-10 h-10 mr-4" />
 				<h1 className={cn(`text-2xl font-semibold ${montserratFont.className}`)}>Genius</h1>
 			</div>
-			<div>
-				<Button variant={'outline'} className="rounded-full text-black">
-					<Link href="/dashboard">Get Started</Link>
-				</Button>
+			<div className="flex items-center gap-4">
+				<Link className={cn(buttonVariants({ variant: 'outline' }), 'rounded-full text-black')} href="/contact">
+					Contact Us
+				</Link>
+				<Link className={cn(buttonVariants({ variant: 'outline' }), 'rounded-full text-black')} href="/dashboard">
+					Get Started
+				</Link>
 			</div>
 		</div>
 	)
