@@ -1,19 +1,26 @@
-import { MessageSquare } from 'lucide-react'
+import { Bot } from "lucide-react";
 
-import ResponsePageHeading from '@/components/response-page/response-page-heading'
+import ResponsePageHeading from "@/components/response-page/response-page-heading";
+import Chat from "@/components/conversation/chat";
+import { authOptions } from "@/auth";
+import { getServerSession, User } from "next-auth";
 
 export default async function ConversationPage() {
-	return (
-		<div className="px-8">
-			<ResponsePageHeading
-				ai={{
-					title: 'Conversation',
-					description: 'Our most advanced conversation model.',
-					icon: MessageSquare as React.FunctionComponent<React.SVGProps<SVGSVGElement>>,
-					iconColor: 'text-violet-500',
-					bgColor: 'bg-violet-500/10',
-				}}
-			/>
-		</div>
-	)
+  const session = await getServerSession(authOptions);
+  const user = session?.user as User;
+  console.log(user);
+  return (
+    <div className="px-8">
+      <ResponsePageHeading
+        ai={{
+          title: "AI Assistant",
+          description: "Our most advanced conversation model.",
+          icon: Bot as React.FunctionComponent<React.SVGProps<SVGSVGElement>>,
+          iconColor: "text-violet-500",
+          bgColor: "bg-violet-500/10",
+        }}
+      />
+      {user && <Chat user={user} />}
+    </div>
+  );
 }
