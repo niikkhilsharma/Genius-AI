@@ -34,7 +34,7 @@ const LandingNavbar = () => {
         <Link
           className={cn(
             buttonVariants({ variant: "outline" }),
-            "rounded-full bg-white text-black",
+            "hidden rounded-full bg-white text-black sm:block",
           )}
           href="/contact"
         >
