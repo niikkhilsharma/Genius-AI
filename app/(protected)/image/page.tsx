@@ -62,7 +62,6 @@ export default function ImagePage() {
       if (res.status !== 200) throw new Error(data.error);
 
       setImages(data.output);
-      console.log(data.ouput);
       setLoading(false);
       toast({
         title: "Image generated successfully. 🎉",
@@ -83,7 +82,19 @@ export default function ImagePage() {
             </ToastAction>
           ),
         });
+      } else {
+        toast({
+          title: (error as Error).message,
+          action: (
+            <ToastAction altText="Try Again!" onClick={() => onsubmit}>
+              Try Again!
+            </ToastAction>
+          ),
+        });
       }
+    } finally {
+      router.refresh();
+      console.log("ran router refresh from image");
     }
   }
 

@@ -3,7 +3,7 @@ import React, { useEffect, useRef } from "react";
 import { ToolInvocation } from "ai";
 import { Message, useChat } from "ai/react";
 import { PlaceholdersAndVanishInput } from "../ui/placeholders-and-vanish-input";
-import type { User } from "next-auth";
+import type { Session, User } from "next-auth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Image from "next/image";
 import { Plane, Figma, TreePine } from "lucide-react";
@@ -13,9 +13,12 @@ import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import rehypeHighlight from "rehype-highlight";
 import "highlight.js/styles/github.css";
+import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 
-export default function Chat({ user }: { user: User }) {
+export default function Chat({ session }: { session: Session }) {
+  const user = session.user;
+  const router = useRouter();
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const placeholders = [
@@ -274,7 +277,15 @@ export default function Chat({ user }: { user: User }) {
           className="max-w-screen-xl"
           placeholders={placeholders}
           onChange={handleInputChange}
-          onSubmit={handleSubmit}
+          onSubmit={() => {
+            try {
+              handleSubmit;
+            } catch (error) {
+              console.log(error);
+            } finally {
+              router.refresh();
+            }
+          }}
         />
       </div>
     </>

@@ -1,5 +1,5 @@
 import React from "react";
-import prisma from "@/utils/database/dbConnect";
+import prisma from "@/lib/database/dbConnect";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 

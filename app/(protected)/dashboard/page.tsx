@@ -27,13 +27,6 @@ const tools = [
     bgColor: "bg-pink-700/10",
     href: "/image",
   },
-  // {
-  // 	label: 'Video Generation',
-  // 	icon: VideoIcon,
-  // 	color: 'text-orange-700',
-  // 	bgColor: 'bg-orange-700/10',
-  // 	href: '/video',
-  // },
   {
     label: "Restore Image",
     icon: Images,
@@ -41,13 +34,20 @@ const tools = [
     bgColor: "bg-red-700/10",
     href: "/restore-images",
   },
-  {
-    label: "AI Assistant",
-    icon: Bot,
-    href: "/conversation",
-    color: "text-violet-500",
-    bgColor: "bg-violet-500/10",
-  },
+  // {
+  // 	label: 'Video Generation',
+  // 	icon: VideoIcon,
+  // 	color: 'text-orange-700',
+  // 	bgColor: 'bg-orange-700/10',
+  // 	href: '/video',
+  // },
+  // {
+  //   label: "AI Assistant",
+  //   icon: Bot,
+  //   href: "/conversation",
+  //   color: "text-violet-500",
+  //   bgColor: "bg-violet-500/10",
+  // },
   // {
   // 	label: 'Code Generation',
   // 	icon: Code,

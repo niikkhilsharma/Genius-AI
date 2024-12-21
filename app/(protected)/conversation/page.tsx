@@ -7,8 +7,7 @@ import { getServerSession, User } from "next-auth";
 
 export default async function ConversationPage() {
   const session = await getServerSession(authOptions);
-  const user = session?.user as User;
-  console.log(user);
+
   return (
     <div className="px-8">
       <ResponsePageHeading
@@ -20,7 +19,7 @@ export default async function ConversationPage() {
           bgColor: "bg-violet-500/10",
         }}
       />
-      {user && <Chat user={user} />}
+      {session && <Chat session={session} />}
     </div>
   );
 }

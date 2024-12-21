@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import Replicate from "replicate";
 
-import { updateRuntimeUsed } from "@/utils/database/functions";
+import { updateRuntimeUsed } from "@/lib/database/functions";
 
 const replicate = new Replicate({
   auth: process.env.REPLICATE_API_TOKEN,
