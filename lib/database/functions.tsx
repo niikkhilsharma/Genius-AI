@@ -31,6 +31,6 @@ export async function updateRuntimeUsed(
       console.log(updateUserProfile);
     }
   } catch (error) {
-    console.error("Error updating runtime used:", error);
+    console.log("Error updating runtime used:", error);
   }
 }

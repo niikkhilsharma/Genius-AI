@@ -19,6 +19,7 @@ export async function POST(request: Request) {
   const uploadedImgObj = await cloudinary.uploader.upload(compressedImgBlob);
   console.log(uploadedImgObj);
   updateRuntimeUsed(0, 0.1);
+  console.log(uploadedImgObj.public_id);
   return NextResponse.json({ publicId: uploadedImgObj.public_id });
 }
 

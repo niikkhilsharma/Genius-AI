@@ -15,7 +15,7 @@ export default withAuth(
     const isGoingToCloudnary =
       req.nextUrl.pathname.startsWith("/api/cloudnary");
 
-    // console.log(user)
+    // console.log(user);
 
     const profile = await prisma.profile.findUnique({
       where: {
@@ -23,15 +23,17 @@ export default withAuth(
       },
     });
 
-    if (user?.isAdmin) {
+    // console.log(profile);
+
+    if (profile?.isAdmin) {
       return NextResponse.next();
     }
 
-    if ((isRequestGoingToDashboard || isGoingToCloudnary) && user?.isPro) {
+    if ((isRequestGoingToDashboard || isGoingToCloudnary) && profile?.isPro) {
       return NextResponse.next();
     } else if (
       (isRequestGoingToDashboard || isGoingToCloudnary) &&
-      !user?.isPro
+      !profile?.isPro
     ) {
       if (profile && profile.apiCallCount < 5) {
         return NextResponse.next();
