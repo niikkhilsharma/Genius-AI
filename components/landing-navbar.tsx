@@ -18,7 +18,7 @@ const LandingNavbar = () => {
     <div className="flex w-full items-center justify-between py-4 text-white">
       <div className="flex items-center">
         <Image
-          src="/logo.png"
+          src="/assets/images/logo.png"
           alt="avatar"
           width={400}
           height={400}

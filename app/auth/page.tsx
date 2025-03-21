@@ -9,7 +9,12 @@ const AuthenticationPage = () => {
     <div className="flex min-h-screen w-full items-center justify-center bg-[#111827] bg-background px-4 pb-20 text-white">
       <div className="mx-auto flex w-full max-w-[26rem] flex-col items-center justify-center">
         <div className="flex flex-col items-center justify-center space-y-3">
-          <Image src={"/logo.png"} width={75} height={75} alt="Genius AI" />
+          <Image
+            src={"/assets/images/logo.png"}
+            width={75}
+            height={75}
+            alt="Genius AI"
+          />
           <h1 className="text-center text-2xl font-semibold">
             Welcome to Genius AI
           </h1>

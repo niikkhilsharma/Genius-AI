@@ -6,7 +6,15 @@ import { PlaceholdersAndVanishInput } from "../ui/placeholders-and-vanish-input"
 import type { Session, User } from "next-auth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Image from "next/image";
-import { Plane, Figma, TreePine } from "lucide-react";
+import {
+  Plane,
+  Figma,
+  TreePine,
+  Cloud,
+  Thermometer,
+  Wind,
+  Droplets,
+} from "lucide-react";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
@@ -22,28 +30,28 @@ export default function Chat({ session }: { session: Session }) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const placeholders = [
-    "What's the first rule of Fight Club?",
-    "Who is Tyler Durden?",
-    "Where is Andrew Laeddis Hiding?",
-    "Write a Javascript method to reverse a string",
-    "How to assemble your own PC?",
+    "What's the weather like in New York?",
+    "How's the temperature in Tokyo today?",
+    "Is it raining in London?",
+    "What should I wear in Barcelona today?",
+    "Tell me about the weather in Sydney",
   ];
 
   const suggestedIcons = [
     {
-      icon: <Plane />,
-      text: "Wamderlust Destinations 2024",
-      category: "Must-Visit Places",
+      icon: <Cloud />,
+      text: "Check weather in your city",
+      category: "Weather Updates",
     },
     {
       icon: <TreePine />,
-      text: "Why these winters are too cold",
-      category: "Key Differentiators",
+      text: "Plan an outdoor activity",
+      category: "Weather-based Planning",
     },
     {
-      icon: <Figma />,
-      text: "Design Trends on TikTok 2024",
-      category: "Trending Now",
+      icon: <Plane />,
+      text: "Travel weather recommendations",
+      category: "Trip Planning",
     },
   ];
 
@@ -54,6 +62,8 @@ export default function Chat({ session }: { session: Session }) {
       // run client-side tools that are automatically executed:
       async onToolCall({ toolCall }) {
         if (toolCall.toolName === "getLocation") {
+          // In a real app, we would use the browser's geolocation API
+          // For this example, we'll return a random city
           const cities = [
             "New York",
             "Los Angeles",
@@ -66,8 +76,68 @@ export default function Chat({ session }: { session: Session }) {
     });
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView();
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+
+  // Function to render weather data in a nice format
+  const renderWeatherData = (weatherData: any) => {
+    if (typeof weatherData === "string") {
+      return <div className="text-red-500">{weatherData}</div>;
+    }
+
+    return (
+      <div className="mt-4 rounded-xl bg-gradient-to-r from-blue-50 to-blue-100 p-4 shadow-sm">
+        <div className="flex items-center justify-between">
+          <h3 className="text-lg font-bold">{weatherData.location}</h3>
+          <span className="text-sm text-gray-500">{weatherData.timestamp}</span>
+        </div>
+
+        <div className="mt-3 flex flex-wrap items-center gap-6">
+          <div className="flex items-center gap-2">
+            <Thermometer className="h-5 w-5 text-red-500" />
+            <div>
+              <div className="text-2xl font-bold">
+                {weatherData.temperature}
+              </div>
+              <div className="text-xs text-gray-500">
+                Feels like {weatherData.feelsLike}
+              </div>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <Cloud className="h-5 w-5 text-blue-500" />
+            <div>
+              <div className="capitalize">{weatherData.conditions}</div>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <Droplets className="h-5 w-5 text-blue-400" />
+            <div>
+              <div>{weatherData.humidity}</div>
+              <div className="text-xs text-gray-500">Humidity</div>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <Wind className="h-5 w-5 text-gray-500" />
+            <div>
+              <div>{weatherData.windSpeed}</div>
+              <div className="text-xs text-gray-500">Wind</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Display weather alert if available */}
+        {weatherData.alertInfo && (
+          <div className="mt-4 rounded-md bg-yellow-50 p-3 text-yellow-800">
+            {weatherData.alertInfo}
+          </div>
+        )}
+      </div>
+    );
+  };
 
   return (
     <>
@@ -131,18 +201,13 @@ export default function Chat({ session }: { session: Session }) {
                     <span className="flex aspect-square h-12 w-12 items-center justify-center rounded-full bg-slate-200 p-2">
                       <Avatar>
                         <AvatarImage
-                          src={"/logo.png"}
-                          alt="User"
+                          src={"/assets/images/logo.png"}
+                          alt="Assistant"
                           width={30}
                           height={30}
                           className="aspect-square rounded-full"
                         />
-                        <AvatarFallback>
-                          {user.name && user.name.split(" ").length > 1
-                            ? user.name.split(" ")[0][0] +
-                              user.name.split(" ")[1][0]
-                            : user?.name?.[0] || ""}
-                        </AvatarFallback>
+                        <AvatarFallback>AI</AvatarFallback>
                       </Avatar>
                     </span>
                     <div>
@@ -177,7 +242,7 @@ export default function Chat({ session }: { session: Session }) {
                     </div>
                   </div>
                 )}
-                {/* {m.content} */}
+
                 {m.toolInvocations?.map((toolInvocation: ToolInvocation) => {
                   const toolCallId = toolInvocation.toolCallId;
                   const addResult = (result: string) =>
@@ -186,35 +251,69 @@ export default function Chat({ session }: { session: Session }) {
                   // render confirmation tool (client-side tool with user interaction)
                   if (toolInvocation.toolName === "askForConfirmation") {
                     return (
-                      <div key={toolCallId}>
-                        {toolInvocation.args.message}
+                      <div
+                        key={toolCallId}
+                        className="ml-16 mt-2 flex flex-col gap-2"
+                      >
+                        <div className="rounded-lg bg-blue-50 p-3">
+                          {toolInvocation.args.message}
+                        </div>
                         <div>
                           {"result" in toolInvocation ? (
-                            <b>{toolInvocation.result}</b>
+                            <div className="font-medium">
+                              You answered:{" "}
+                              <span className="font-bold">
+                                {toolInvocation.result}
+                              </span>
+                            </div>
                           ) : (
-                            <>
-                              <button onClick={() => addResult("Yes")}>
+                            <div className="flex gap-2">
+                              <button
+                                onClick={() => addResult("Yes")}
+                                className="rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+                              >
                                 Yes
                               </button>
-                              <button onClick={() => addResult("No")}>
+                              <button
+                                onClick={() => addResult("No")}
+                                className="rounded-md border border-gray-300 bg-white px-4 py-2 hover:bg-gray-50"
+                              >
                                 No
                               </button>
-                            </>
+                            </div>
                           )}
                         </div>
                       </div>
                     );
                   }
 
+                  // Weather tool display
+                  if (
+                    toolInvocation.toolName === "getWeatherInformation" &&
+                    "result" in toolInvocation
+                  ) {
+                    return (
+                      <div key={toolCallId} className="ml-16 mt-2">
+                        {renderWeatherData(toolInvocation.result)}
+                      </div>
+                    );
+                  }
+
                   // other tools:
                   return "result" in toolInvocation ? (
-                    <div key={toolCallId}>
-                      Tool call {`${toolInvocation.toolName}: `}
-                      {toolInvocation.result}
+                    <div
+                      key={toolCallId}
+                      className="ml-16 mt-2 text-sm text-gray-500"
+                    >
+                      {toolInvocation.toolName}:{" "}
+                      {JSON.stringify(toolInvocation.result)}
                     </div>
                   ) : (
-                    <div key={toolCallId}>
-                      Calling {toolInvocation.toolName}...
+                    <div
+                      key={toolCallId}
+                      className="ml-16 mt-2 text-sm text-gray-500"
+                    >
+                      Getting information...
                     </div>
                   );
                 })}
@@ -225,16 +324,22 @@ export default function Chat({ session }: { session: Session }) {
         ) : (
           <div className="flex h-full flex-col items-center justify-center p-4">
             <div className="flex flex-col items-center justify-center">
-              <Image src="/logo.png" alt="logo" width={50} height={50} />
+              <Image
+                src="/assets/images/logo.png"
+                alt="logo"
+                width={50}
+                height={50}
+              />
               <p className="mt-2 font-sans text-3xl font-semibold text-pink-500/80">
                 Hi, {user.name}
               </p>
               <p className="font-sans text-3xl font-semibold text-black/80">
-                Can I help you with anything?
+                What's the weather like today?
               </p>
               <p className="mt-2 text-sm text-pink-400">
-                Ready to assit you with anything you need, from answering <br />
-                questions to providing recommendations. Let&apos;s get started!
+                I can provide real-time weather information for any location.{" "}
+                <br />
+                Ask me about the weather in your city or anywhere in the world!
               </p>
             </div>
             <div className="mt-20 flex gap-4">
@@ -279,7 +384,7 @@ export default function Chat({ session }: { session: Session }) {
           onChange={handleInputChange}
           onSubmit={() => {
             try {
-              handleSubmit;
+              handleSubmit();
             } catch (error) {
               console.log(error);
             } finally {
