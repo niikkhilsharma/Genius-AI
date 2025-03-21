@@ -334,7 +334,7 @@ export default function Chat({ session }: { session: Session }) {
                 Hi, {user.name}
               </p>
               <p className="font-sans text-3xl font-semibold text-black/80">
-                What's the weather like today?
+                What&apos;s the weather like today?
               </p>
               <p className="mt-2 text-sm text-pink-400">
                 I can provide real-time weather information for any location.{" "}
