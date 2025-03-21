@@ -55,5 +55,5 @@ export default withAuth(
 export const config = {
   // matcher: '/((?!api/auth|auth|images|_next/static|_next/image|favicon.ico|^/$).+)',
   matcher:
-    "/((?!api/auth/[^/]+$|auth|api/auth|images|public/*|_next/static|_next/image*|contact|favicon.ico|^/$|api/payment/record-payment).+)/",
+    "/((?!api/auth/[^/]+$|auth|api/auth|public/assets/*|_next/static|_next/image*|contact|favicon.ico|^/$|api/payment/record-payment).+)/",
 };
