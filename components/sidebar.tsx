@@ -11,6 +11,7 @@ import {
   Music,
   Settings,
   Images,
+  Bot,
 } from "lucide-react";
 import { BiSolidZap } from "react-icons/bi";
 import { cn } from "@/lib/utils";
@@ -49,12 +50,12 @@ const routes = [
     bgColor: "bg-red-700/10",
     href: "/restore-images",
   },
-  // {
-  //   label: "AI Assistant",
-  //   icon: Bot,
-  //   href: "/conversation",
-  //   color: "text-violet-500",
-  // },
+  {
+    label: "AI Assistant",
+    icon: Bot,
+    href: "/conversation",
+    color: "text-violet-500",
+  },
   // {
   // 	label: 'Code Generation',
   // 	icon: Code,

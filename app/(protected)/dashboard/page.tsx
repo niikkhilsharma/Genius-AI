@@ -1,15 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
-import {
-  Code,
-  ImageIcon,
-  Music,
-  VideoIcon,
-  ArrowRight,
-  Images,
-  Bot,
-} from "lucide-react";
+import { Code, ImageIcon, Music, ArrowRight, Images, Bot } from "lucide-react";
 import Link from "next/link";
 
 const tools = [
@@ -41,13 +33,13 @@ const tools = [
   // 	bgColor: 'bg-orange-700/10',
   // 	href: '/video',
   // },
-  // {
-  //   label: "AI Assistant",
-  //   icon: Bot,
-  //   href: "/conversation",
-  //   color: "text-violet-500",
-  //   bgColor: "bg-violet-500/10",
-  // },
+  {
+    label: "AI Assistant",
+    icon: Bot,
+    href: "/conversation",
+    color: "text-violet-500",
+    bgColor: "bg-violet-500/10",
+  },
   // {
   // 	label: 'Code Generation',
   // 	icon: Code,
